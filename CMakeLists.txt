@@ -2,4 +2,10 @@
 
 project ("asterisk")
 
+set (CMAKE_CXX_STANDARD 20)
+
+add_subdirectory ("third_party")
+
+set (CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin")
+
 add_subdirectory ("asterisk")
