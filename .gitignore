@@ -53,4 +53,5 @@ build/**/*
 include/*
 lib/*
 bin/*
+out/*
 test/test_runner
