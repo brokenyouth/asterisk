@@ -49,6 +49,7 @@ include/divisible/*
 .idea/*.xml
 
 build/**/*
+out/**/*
 
 include/*
 lib/*
