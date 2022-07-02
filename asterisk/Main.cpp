@@ -1,8 +1,18 @@
-﻿#include <iostream>
+﻿#include "Game.h"
+#include "Logger.h"
 
-
-int main()
+int main(int argc, char** argv)
 {
-	std::cout << "Hello CMake." << std::endl;
+	Logger::Initialize();
+
+
+	GameConfig GConfig;
+	GConfig.Fov = 68.f;
+
+	Game* game = new Game(GConfig);
+	game->Run();
+
+	delete game;
+
 	return 0;
 }

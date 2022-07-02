@@ -1,3 +1,5 @@
+add_subdirectory(spdlog INTERFACE)
+
 add_library(glm INTERFACE)
 target_include_directories(glm INTERFACE glm)
 
