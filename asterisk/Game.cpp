@@ -1,3 +1,9 @@
+/*
+	Asterisk
+	Redouane Chabane (July, 2022)
+	Game.cpp - Window and interfaces initialization, game loop.
+*/
+
 #include "Game.h"
 #include "Level.h"
 #include "GameplayState.h"

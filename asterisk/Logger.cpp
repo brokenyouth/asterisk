@@ -1,3 +1,9 @@
+/*
+    Asterisk
+    Redouane Chabane (July, 2022)
+    Logger.cpp - Simple logging interface on top of spdlog.
+*/
+
 #include "Logger.h"
 #include <vector>
 

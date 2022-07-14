@@ -1,3 +1,9 @@
+/*
+    Asterisk
+    Redouane Chabane (July, 2022)
+    Texture.cpp - Texture asbtraction on top of stb_image.
+*/
+
 #include "Texture.h"
 #include "Utility.h"
 #include "Logger.h"

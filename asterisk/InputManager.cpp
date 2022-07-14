@@ -1,3 +1,9 @@
+/*
+    Asterisk
+    Redouane Chabane (July, 2022)
+    InputManager.cpp - Simple input abstraction interface.
+*/
+
 #include "InputManager.h"
 #include "Logger.h"
 

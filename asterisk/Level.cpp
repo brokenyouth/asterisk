@@ -1,5 +1,10 @@
-#include "Level.h"
+/*
+	Asterisk
+	Redouane Chabane (July, 2022)
+	Level.cpp - 50% of the raycasting is done here, also manages level loading from file and data storing.
+*/
 
+#include "Level.h"
 #include "Game.h"
 #include "GameplayState.h"
 #include "Player.h"

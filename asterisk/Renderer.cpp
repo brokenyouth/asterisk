@@ -2,6 +2,8 @@
 	Asterisk
 	Redouane Chabane (July, 2022)
 	Renderer.cpp - Preparing the render frame - primitives, texture, and pixel manipulation.
+
+	render line is not mine.
 */
 
 #include "Texture.h"

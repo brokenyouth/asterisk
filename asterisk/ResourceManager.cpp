@@ -1,3 +1,9 @@
+/*
+	Asterisk
+	Redouane Chabane (July, 2022)
+	ResourceManager.cpp - Texture loading and caching (and other stuff in the future like sound...).
+*/
+
 #include "ResourceManager.h"
 #include "Logger.h"
 

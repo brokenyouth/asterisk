@@ -1,3 +1,9 @@
+/*
+	Asterisk
+	Redouane Chabane (July, 2022)
+	GameplayState.cpp - Actual gameplay code goes here. Input, Update, Render... the rest of the 50% raycasting is done here.
+*/
+
 #include "GameplayState.h"
 
 #include "Game.h"

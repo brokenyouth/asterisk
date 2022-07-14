@@ -1,3 +1,9 @@
+/*
+	Asterisk
+	Redouane Chabane (July, 2022)
+	Actor.cpp - Basic actor class, inherited by all type of "entities" like monsters, player etc;
+*/
+
 #include "Actor.h"
 
 Actor::Actor(GameplayState* InGameplayState, Level* InLevel, const glm::vec2& InPosition, bool IsBlocking)

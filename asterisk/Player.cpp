@@ -1,3 +1,9 @@
+/*
+	Asterisk
+	Redouane Chabane (July, 2022)
+	Player.cpp - Player logic.
+*/
+
 #include "Player.h"
 
 #include "GameplayState.h"
