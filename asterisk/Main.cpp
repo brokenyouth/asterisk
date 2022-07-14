@@ -1,4 +1,8 @@
-﻿#include "Game.h"
+﻿#define STB_IMAGE_IMPLEMENTATION
+#include <stb_image.h>
+
+
+#include "Game.h"
 #include "Logger.h"
 
 int main(int argc, char** argv)
@@ -7,10 +11,15 @@ int main(int argc, char** argv)
 
 
 	GameConfig GConfig;
-	GConfig.Fov = 68.f;
+	{
+		GConfig.Fov = 68.f;
+		GConfig.FPS = 165;
+	}
 
 	Game* game = new Game(GConfig);
-	game->Run();
+	{
+		game->Run();
+	}
 
 	delete game;
 
