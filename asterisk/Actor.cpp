@@ -17,6 +17,7 @@ Actor::~Actor()
 
 void Actor::Tick(float DeltaTime)
 {
+
 }
 
 void Actor::MoveForward(float Value)
@@ -34,6 +35,7 @@ void Actor::Rotate(float Value)
 
 void Actor::SetPosition(const glm::vec2& InPosition)
 {
+	Position = InPosition;
 }
 
 void Actor::SetRotation(float Value)
@@ -45,8 +47,9 @@ void Actor::OnCollision(Actor* OtherActor)
 {
 }
 
-void Actor::OnWallCollision()
+bool Actor::OnWallCollision()
 {
+	return false;
 }
 
 const glm::vec2& Actor::GetPosition() const

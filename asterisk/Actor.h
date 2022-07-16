@@ -46,7 +46,7 @@ public:
 	virtual void SetRotation(float Value);
 
 	virtual void OnCollision(Actor* OtherActor);
-	virtual void OnWallCollision();
+	virtual bool OnWallCollision();
 
 	virtual Texture* GetTexture() const { return mTexture; }
 

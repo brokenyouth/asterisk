@@ -25,14 +25,16 @@ struct RaycastHitInfo
 class Tile
 {
 public:
+    int Size;
     glm::vec2 TileCoordinate = {0, 0}; // Tile Coordinates
     Texture* TileTexture = nullptr; // Pointer to Tile Texture object
     bool bBlocking = false; // Is this Tile a blocking tile or not? e.g wall, door -- or an empty tile
     bool bIsDoor = false; // Is this tile a door?
 public:
     Tile() = default;
-    explicit Tile(Texture* InTileTexture, glm::vec2 InTileCoordinate)
+    explicit Tile(int InSize, Texture* InTileTexture, glm::vec2 InTileCoordinate)
     {
+        Size = InSize;
         TileTexture = InTileTexture;
         TileCoordinate = InTileCoordinate;
     }
@@ -52,6 +54,7 @@ private:
     void HandleRowData(int RowNumber, const std::string& RowData);
 
 public:
+    int TileSize;
     int Width;
     int Height;
 
@@ -69,6 +72,9 @@ public:
     Game* GetGame() const;
     Player* GetPlayer() const;
 
+    inline int GetLevelTileSize() const {
+        return TileSize;
+    }
     const std::vector<Tile>& GetTiles() const;
     Tile* GetTileAt(int x, int y);
 };

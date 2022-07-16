@@ -35,7 +35,7 @@ void GameplayState::Render()
 	mRenderer->RenderFill(0x0000000);
 	RenderBackground();
 	RenderWorld();
-	RenderMinimap();
+	//RenderMinimap();
 }
 
 void GameplayState::UpdatePlayer(float DeltaTime)
@@ -54,11 +54,11 @@ void GameplayState::UpdatePlayer(float DeltaTime)
 		}
 		if (Input->KeyHeld(SDL_SCANCODE_D)) // Right
 		{
-			mPlayer->MoveRight(1.0f);
+			mPlayer->MoveRight(-1.0f);
 		}
 		if (Input->KeyHeld(SDL_SCANCODE_A)) // Left
 		{
-			mPlayer->MoveRight(-1.0f);
+			mPlayer->MoveRight(1.0f);
 		}
 
 		float DeltaMouseX = Input->GetDeltaMouseX();
@@ -89,7 +89,7 @@ void GameplayState::RenderMinimap()
 void GameplayState::RenderBackground()
 {
 	const int HalfScreenHeight = (int)(mRenderer->GetFrameHeight() / 2);
-	mRenderer->RenderRect(0, 0, mRenderer->GetFrameWidth(), HalfScreenHeight, 0xffB6B6B6);
+	mRenderer->RenderRect(0, 0, mRenderer->GetFrameWidth(), HalfScreenHeight, 0);
 	mRenderer->RenderRect(0, HalfScreenHeight + 1, mRenderer->GetFrameWidth(), HalfScreenHeight, 0xff3C3C3C);
 }
 

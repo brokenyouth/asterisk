@@ -10,6 +10,7 @@
 #include "Player.h"
 #include "ResourceManager.h"
 #include "Logger.h"
+#include "Physics2D.h"
 #include "Utility.h"
 
 #include <exception>
@@ -28,8 +29,13 @@ Level::~Level()
 
 }
 
+
+/*
+	Perform simple aabb collision check.
+*/
 void Level::Update(float DeltaTime)
 {
+	
 }
 
 RaycastHitInfo Level::Raycast(const glm::vec2& RayPosition, const glm::vec2& RayDirection, float MaxDistance)
@@ -46,8 +52,6 @@ RaycastHitInfo Level::Raycast(const glm::vec2& RayPosition, const glm::vec2& Ray
 	bool bHitWall = false;
 	bool bHitHorizontalSide = false;
 
-	// In case unexpected behaviour occurs, exit loop after some time
-	int SecurityCheckCount = 0;
 	// Perform DDA
 	while (!bHitWall)
 	{
@@ -165,13 +169,15 @@ void Level::LoadLevel(const std::string& LevelName)
 
 		if (Util::StringStartsWith(Line, "tilesize"))
 		{
-			std::string Temp, TileWidth, TileHeight;
-			if (!(Iss >> Temp >> TileWidth >> TileHeight))
+			std::string Temp, TileSizeStr;
+			if (!(Iss >> Temp >> TileSizeStr))
 			{
-				const std::string Message = std::format("Error loading level : {}\nIncorrect tile dimensions", LevelName);
+				const std::string Message = std::format("Error loading level : {}\nIncorrect tile size", LevelName);
 				throw std::runtime_error(Message);
 			}
 			// SetTile Dimensions
+			TileSize = std::stoi(TileSizeStr);
+
 		}
 		else if (Util::StringStartsWith(Line, "gridsize"))
 		{
@@ -250,17 +256,12 @@ void Level::HandleRowData(int RowNumber, const std::string& RowData)
 		if (std::isalnum(RowData[i])) // is a wall
 		{
 			int TextureIndex = RowData[i] - '0';
-			NewTile = Tile(mTextureLookup[TextureIndex], TileCoords);
-			if (NewTile.TileTexture)
-			{
-				//LOG_INFO("Texture tile ptr => {}", NewTile.TileTexture->GetPath());
-			}
+			NewTile = Tile(TileSize, mTextureLookup[TextureIndex], TileCoords);
 			NewTile.bBlocking = true;
-			LOG_INFO("Found blocking tile");
 		}
 		else
 		{
-			NewTile = Tile(ResourceManager::Get()->GetTexture("missing"), TileCoords);
+			NewTile = Tile(TileSize, nullptr, TileCoords);
 			NewTile.bBlocking = false;
 		}
 		

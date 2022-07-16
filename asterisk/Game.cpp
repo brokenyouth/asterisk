@@ -62,8 +62,7 @@ bool Game::Initialize()
 	SDL_ShowWindow(mSDLWindow);
 	//SDL_ShowCursor(SDL_DISABLE);
 	SDL_SetWindowGrab(mSDLWindow, SDL_TRUE);
-	//SDL_SetRelativeMouseMode(SDL_TRUE);
-	SDL_SetWindowFullscreen(mSDLWindow, SDL_WINDOW_FULLSCREEN_DESKTOP);
+	//SDL_SetWindowFullscreen(mSDLWindow, SDL_WINDOW_FULLSCREEN_DESKTOP);
 
 	ResourceManager::Get(); // ?
 	InputManager::Get(); // ?
