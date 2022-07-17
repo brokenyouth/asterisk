@@ -1,7 +1,7 @@
 /*
 	Asterisk
 	Redouane Chabane (July, 2022)
-	Level.cpp - 50% of the raycasting is done here, also manages level loading from file and data storing.
+	Level.cpp - 50% of the raycasting is done here, also manages actor updates, level loading from file and data storing.
 */
 
 #include "Level.h"
@@ -31,7 +31,7 @@ Level::~Level()
 
 
 /*
-	Perform simple aabb collision check.
+	Update level actors and stuff.
 */
 void Level::Update(float DeltaTime)
 {

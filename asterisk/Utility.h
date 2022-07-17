@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <string_view>
+#include <glm/common.hpp>
 
 namespace Util
 {
@@ -19,7 +20,11 @@ namespace Util
 	{
 		static uint32_t RGBAToUint32(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 		{
-			return r << 24 | g << 16 | b << 8 | a;
+			return a << 24 | b << 16 | g << 8 | r;
 		}
+	}
+
+	static glm::vec2 Vector2Lerp(glm::vec2 x, glm::vec2 y, float t) {
+		return x * (1.f - t) + y * t;
 	}
 }

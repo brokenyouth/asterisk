@@ -14,6 +14,8 @@ private:
 	uint32_t mHeight;
 	std::string mPath;
 	uint32_t* mData;
+	SDL_Surface* mSurface;
+	SDL_Texture* mTexture;
 
 public:
 	explicit Texture(const std::string& Path);
@@ -27,4 +29,6 @@ public:
 	void Release();
 
 	inline std::string GetPath() const { return mPath; }
+	inline SDL_Surface* GetSDLSurface() const { return mSurface; }
+
 };

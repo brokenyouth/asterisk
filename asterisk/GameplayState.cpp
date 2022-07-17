@@ -11,6 +11,7 @@
 #include "Renderer.h"
 #include "Player.h"
 #include "Level.h"
+#include "Logger.h"
 
 #include <glm/glm.hpp>
 
@@ -32,9 +33,10 @@ void GameplayState::Update(float DeltaTime)
 
 void GameplayState::Render()
 {
-	mRenderer->RenderFill(0x0000000);
+	//mRenderer->RenderFill(0x0000000);
 	RenderBackground();
 	RenderWorld();
+	RenderPlayer();
 	//RenderMinimap();
 }
 
@@ -89,7 +91,7 @@ void GameplayState::RenderMinimap()
 void GameplayState::RenderBackground()
 {
 	const int HalfScreenHeight = (int)(mRenderer->GetFrameHeight() / 2);
-	mRenderer->RenderRect(0, 0, mRenderer->GetFrameWidth(), HalfScreenHeight, 0);
+	mRenderer->RenderRect(0, 0, mRenderer->GetFrameWidth(), HalfScreenHeight, 0x00000000);
 	mRenderer->RenderRect(0, HalfScreenHeight + 1, mRenderer->GetFrameWidth(), HalfScreenHeight, 0xff3C3C3C);
 }
 
@@ -161,6 +163,18 @@ void GameplayState::RenderWorld()
 
 void GameplayState::RenderPlayer()
 {
+	/*
+	* Render weapon
+	*/
+	Texture* CurrWeaponTexture = mPlayer->Weapon->GetTexture();
+	const glm::vec2& DeltaWeaponPosition = mPlayer->Weapon->GetPosition();
+	glm::vec2 WeaponDrawPosition = { (mRenderer->GetFrameWidth() / 2 ) - (CurrWeaponTexture->GetWidth() / 2),
+		mRenderer->GetFrameHeight() - (CurrWeaponTexture->GetHeight() )
+	};
+
+	WeaponDrawPosition -= DeltaWeaponPosition;
+	mRenderer->RenderTexture(CurrWeaponTexture, WeaponDrawPosition.x, WeaponDrawPosition.y);
+	/**************************/
 }
 
 void GameplayState::RenderMinimapPointOfView()

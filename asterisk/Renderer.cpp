@@ -8,13 +8,19 @@
 
 #include "Texture.h"
 #include "Renderer.h"
+#include "Utility.h"
 #include "Logger.h"
 
 void Renderer::SetFramePixel(int x, int y, uint32_t Color)
 {
 	if (x >= 0 && y >= 0 && x < mWidth && y < mHeight)
 	{
-		mFrameBuffer[y * mWidth + x] = Color;
+		// TODO: Do alpha blending later
+		// this is a hard coded transparency pixel color
+		if (Color != 0xA5A5A5)
+		{
+			mFrameBuffer[y * mWidth + x] = Color;
+		}
 	}
 }
 
@@ -120,7 +126,7 @@ Renderer::Renderer(SDL_Renderer* pRenderer, int FOV, const uint32_t pWidth, cons
 		SDL_DestroyTexture)
 {
 	mFrameBuffer = new uint32_t[mWidth * mHeight];
-	mDepthBuffer = new uint32_t[mWidth * mHeight];
+	mDepthBuffer = new uint32_t[mWidth];
 }
 
 Renderer::~Renderer()

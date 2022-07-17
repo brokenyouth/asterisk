@@ -135,7 +135,7 @@ void Game::Run()
 
 			if (UpdateInterval > FrameTime)
 			{
-				//SDL_Delay(UpdateInterval - FrameTime);
+				SDL_Delay(UpdateInterval - FrameTime);
 			}
 
 			HandleInput();
