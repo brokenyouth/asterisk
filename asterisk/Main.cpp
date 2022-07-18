@@ -12,8 +12,8 @@ int main(int argc, char** argv)
 
 	GameConfig GConfig;
 	{
-		GConfig.Width = 600;
-		GConfig.Height = 400;
+		GConfig.Width = 800;
+		GConfig.Height = 600;
 		GConfig.Fov = 68.f;
 		GConfig.FPS = 120;
 	}
