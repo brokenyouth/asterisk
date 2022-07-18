@@ -11,9 +11,14 @@
 #include "Renderer.h"
 #include "Player.h"
 #include "Level.h"
+#include "Utility.h"
 #include "Logger.h"
 
 #include <glm/glm.hpp>
+
+#define FOGR 42
+#define FOGG 42
+#define FOGB 42
 
 GameplayState::GameplayState(Game& pGame) : State(pGame)
 {
@@ -34,7 +39,7 @@ void GameplayState::Update(float DeltaTime)
 void GameplayState::Render()
 {
 	//mRenderer->RenderFill(0x0000000);
-	RenderBackground();
+	//RenderBackground();
 	RenderWorld();
 	RenderPlayer();
 	//RenderMinimap();
@@ -91,13 +96,16 @@ void GameplayState::RenderMinimap()
 void GameplayState::RenderBackground()
 {
 	const int HalfScreenHeight = (int)(mRenderer->GetFrameHeight() / 2);
-	mRenderer->RenderRect(0, 0, mRenderer->GetFrameWidth(), HalfScreenHeight, 0x00000000);
-	mRenderer->RenderRect(0, HalfScreenHeight + 1, mRenderer->GetFrameWidth(), HalfScreenHeight, 0xff3C3C3C);
+	Texture* NightSkyTexture = ResourceManager::Get()->GetTexture("night_sky");
+	mRenderer->RenderTexture(NightSkyTexture, 0, 0);
+	mRenderer->RenderRect(0, HalfScreenHeight + 1, mRenderer->GetFrameWidth(), HalfScreenHeight, 0xFF262016);
 }
 
 void GameplayState::RenderWorld()
 {
+	Texture* NightSkyTexture = ResourceManager::Get()->GetTexture("night_sky");
 	Texture* MissingTexture = ResourceManager::Get()->GetTexture("missing");
+	uint32_t FloorColor = 0xFF262016;
 	const Player* _Player = mLevel->GetPlayer();
 	const int ScreenWidth = mRenderer->GetFrameWidth();
 	const int ScreenHeight = mRenderer->GetFrameHeight();
@@ -116,7 +124,8 @@ void GameplayState::RenderWorld()
 
 		// Get Raycast information
 		const RaycastHitInfo RayHitInfo = mLevel->Raycast(_Player->GetPosition(), RayDirection, 2000.0f);
-		const float HitDistance = glm::length(_Player->GetPosition() - RayHitInfo.HitPosiiton) * /* fisheye fix */ glm::cos(ScreenAngle) ;
+		const float RealHitDistance = glm::length(_Player->GetPosition() - RayHitInfo.HitPosiiton);
+		const float HitDistance = RealHitDistance * /* fisheye fix */ glm::cos(ScreenAngle) ;
 	
 		const int ColumnHeight = (int)(ScreenHeight / ( 2 * HitDistance * TanHalfVerticalFov));
 
@@ -129,12 +138,14 @@ void GameplayState::RenderWorld()
 			ColumnEndY = ColumnEndY > (ScreenHeight - 1) ? ScreenHeight - 1 : ColumnEndY;
 
 			int ColumnScreenHeightDelta = ColumnHeight - ScreenHeight;
+
+			float FogReduction = 1 - glm::min(1.f, RealHitDistance * 0.075f);
 			
 			// Draw ceiling
-			/*for (int y = 0; y < ColumnStartY; y++)
+			for (int y = 0; y < ColumnStartY; y++)
 			{
-				
-			}*/
+				mRenderer->RenderPixel(x, y, NightSkyTexture->GetPixelColor(x, y));
+			}
 
 			// Draw Column (wall)
 			for (int y = ColumnStartY; y < ColumnEndY; y++)
@@ -148,15 +159,20 @@ void GameplayState::RenderWorld()
 				}
 				int TextureX = (int)(HitTexture->GetWidth() * RayHitInfo.TexturePlanePosition);
 				int TextureY = d * HitTexture->GetHeight() / (2 * ColumnHeight);
+
 				PixelColor = HitTexture->GetPixelColor(TextureX, TextureY);
+				PixelColor = Util::Color::ApplyFogToPixel(PixelColor, FogReduction);
+
 				mRenderer->RenderPixel(x, y, PixelColor);
 			}
 
 			// Draw floor
-			/*for (int y = ColumnEndY; y < ScreenHeight; y++)
+			// Well... this actually created a pretty cool floor see-through effect
+			for (int y = ColumnEndY; y < ScreenHeight; y++)
 			{
-
-			}*/
+				uint32_t FloorColorWithFog = Util::Color::ApplyFogToPixel(FloorColor, FogReduction);
+				mRenderer->RenderPixel(x, y, FloorColorWithFog);
+			}
 		}
 	}
 }

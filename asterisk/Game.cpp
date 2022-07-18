@@ -139,7 +139,7 @@ void Game::Run()
 			}
 
 			HandleInput();
-			Update((float) 1 / mGameConfig.FPS);
+			Update(1.f / mGameConfig.FPS);
 			Render();
 		}
 

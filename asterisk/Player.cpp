@@ -121,7 +121,7 @@ WeaponRifle::WeaponRifle(Actor* WeaponOwner, Texture* WeaponTexture) : IWeapon(W
 	DefaultClipSize = 90;
 	Ammo = DefaultAmmo;
 	ClipSize = DefaultClipSize;
-	Position = { 0.f, 0.f };
+	Position = { 0.f, -2.f };
 }
 
 WeaponRifle::~WeaponRifle()
@@ -136,18 +136,18 @@ void WeaponRifle::Update(float DeltaTime)
 	if (Input->KeyHeld(SDL_SCANCODE_W) || Input->KeyHeld(SDL_SCANCODE_S) || Input->KeyHeld(SDL_SCANCODE_D) || Input->KeyHeld(SDL_SCANCODE_A))
 	{
 		// TODO: Avoid hardcode
-		Multiplier = 12.f;
+		Speed = 12.f;
 		Amplitude = 100.0f;
 	}
 	else
 	{
 		Time = 0.f;
-		Multiplier = 4.f;
+		Speed = 4.f;
 		Amplitude = 50.0f;
-		Position = Util::Vector2Lerp(Position, { 0.f, 0.f }, DeltaTime * 20.f);
+		Position = Util::Vector2Lerp(Position, { 0.f, -2.f }, DeltaTime * 20.f);
 	}
 
-	float Frequency = static_cast<float>(Multiplier);
+	float Frequency = Speed;
 	float MovementX = glm::sin(Time * Frequency) * Amplitude;
 	float MovementY = glm::sin(Time * Frequency) * Amplitude;
 

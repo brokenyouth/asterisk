@@ -36,7 +36,7 @@ private:
 	/*
 	* Used for weapon bobbing
 	*/
-	float Multiplier;
+	float Speed;
 	float Time; 
 	float Amplitude;
 	/***************/

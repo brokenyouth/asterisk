@@ -17,7 +17,7 @@ void Renderer::SetFramePixel(int x, int y, uint32_t Color)
 	{
 		// TODO: Do alpha blending later
 		// this is a hard coded transparency pixel color
-		if (Color != 0xA5A5A5)
+		if (Color != 0xFFA5A5A5)
 		{
 			mFrameBuffer[y * mWidth + x] = Color;
 		}
