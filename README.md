@@ -19,6 +19,6 @@ The project relies on third party libraries :
 - stb_image
 - sdl2_image (not necessary)
 
-# Screenshots
+# What it looks like
 
-
+![GIF](https://github.com/brokenyouth/asterisk/blob/main/show1.gif)
